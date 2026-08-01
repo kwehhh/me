@@ -356,12 +356,43 @@ const buildExperience = () =>
     ],
   });
 
+// Featured collaboration — Image Slicer (with Kamil). Its own richer card
+// above the grid so it can carry a live link, repo link, and a credit.
+const buildFeatured = () =>
+  Spawn({
+    className: 'card project-featured reveal',
+    children: [
+      Spawn({ className: 'tag-cloud', children: [Spawn({ tag: 'span', className: 'tag', children: 'Featured build' })] }),
+      Spawn({ tag: 'h3', className: 'project-name featured-name', children: 'Image Slicer' }),
+      Spawn({
+        tag: 'p', className: 'project-desc',
+        children: 'Upload an image, slice it into a clean grid, and export every piece — chop chop. A tier-based image-slicing web app (Laravel + Vue) with plan-gated features and a background slicing pipeline.',
+      }),
+      Spawn({
+        tag: 'p', className: 'project-desc featured-credit',
+        children: [
+          'Built with ',
+          Spawn({ tag: 'a', className: 'inline-link', href: 'https://github.com/kamaca', target: '_blank', rel: 'noopener', children: 'Kamil' }),
+          '.',
+        ],
+      }),
+      Spawn({
+        className: 'featured-actions',
+        children: [
+          Spawn({ tag: 'a', className: 'btn btn-primary', href: 'https://imageslicer.com', target: '_blank', rel: 'noopener', children: [icon(ICON.ext), 'Visit imageslicer.com'] }),
+          Spawn({ tag: 'a', className: 'btn', href: 'https://github.com/kamaca/imageslicer', target: '_blank', rel: 'noopener', children: [icon(ICON.github), 'Repo'] }),
+        ],
+      }),
+    ],
+  });
+
 const buildProjects = () =>
   Spawn({
     tag: 'section', className: 'section',
     children: [
       eyebrow('Projects'),
       title('Things I\u2019ve been building'),
+      buildFeatured(),
       Spawn({
         className: 'projects',
         children: PROJECTS.map((p, i) =>
@@ -394,7 +425,14 @@ const buildFooter = () =>
         ],
       }),
       Spawn({ tag: 'br' }),
-      Spawn({ tag: 'p', className: 'footer-note', children: '\u00A9 ' + new Date().getFullYear() + ' John Yagiz · Crafted with vanilla JS on a particle backdrop.' }),
+      Spawn({
+        tag: 'p', className: 'footer-note',
+        children: [
+          '\u00A9 ' + new Date().getFullYear() + ' John Yagiz · Crafted with ',
+          Spawn({ tag: 'a', className: 'inline-link', href: 'https://github.com/kwehhh/Respawn', target: '_blank', rel: 'noopener', children: 'Respawn' }),
+          ' on a particle backdrop.',
+        ],
+      }),
     ],
   });
 

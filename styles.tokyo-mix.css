@@ -46,3 +46,29 @@
 .section-eyebrow { color: #8A89FA; }     /* B's soft-purple eyebrow */
 .co, .xp-co { color: #0CC7A0; }          /* aqua company names */
 .xp-when { color: #8A89FA; }             /* mono soft-purple dates */
+
+/* Inline text links (footer "Respawn", Kamil credit) — soft-purple, underlined. */
+.inline-link {
+  color: #8A89FA;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(138, 137, 250, 0.4);
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.inline-link:hover { color: #6E6DF8; border-bottom-color: #6E6DF8; }
+
+/* Featured build card (Image Slicer) — one accent edge to set it apart. */
+.project-featured {
+  border-left: 3px solid #504FF6 !important;
+  margin-bottom: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.project-featured .featured-name { font-size: 1.34rem; margin-top: 4px; }
+.project-featured .featured-credit { color: #8f95b6; margin-top: -2px; }
+.project-featured .featured-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+}
