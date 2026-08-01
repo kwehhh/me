@@ -430,7 +430,9 @@ const buildFooter = () =>
         children: [
           '\u00A9 ' + new Date().getFullYear() + ' John Yagiz · Crafted with ',
           Spawn({ tag: 'a', className: 'inline-link', href: 'https://github.com/kwehhh/Respawn', target: '_blank', rel: 'noopener', children: 'Respawn' }),
-          ' on a particle backdrop.',
+          ' on a ',
+          Spawn({ tag: 'a', className: 'inline-link', href: 'https://codepen.io/Arti-Gagarin/pen/RNojrjK', target: '_blank', rel: 'noopener', children: 'particle backdrop' }),
+          '.',
         ],
       }),
     ],
