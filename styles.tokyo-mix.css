@@ -1,0 +1,31 @@
+/* ============================================================
+   Mix — original CV structure + the timeline (B) palette touches,
+   no moving particles. Load after styles.tokyo.css.
+   ============================================================ */
+
+/* Calm, static backdrop — hide the particle layer entirely. */
+.particles { display: none !important; }
+
+/* B's mono labels — the "developer / terminal" feel. */
+.section-eyebrow,
+.scroll-cue,
+.xp-when,
+.xp-co,
+.stat-label,
+.project-lang {
+  font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  letter-spacing: 0.14em;
+}
+
+/* B's gradient skill bars. */
+.skill-bar .fill {
+  background: linear-gradient(90deg, #0CC7A0 0%, var(--accent-soft) 100%) !important;
+}
+.skill-bar.max .fill {
+  background: linear-gradient(90deg, var(--accent) 0%, #FE017B 100%) !important;
+  box-shadow: 0 0 8px rgba(80, 79, 246, 0.5);
+}
+
+/* Crisper cards, a touch closer to B's edges. */
+.card { border-color: rgba(80, 79, 246, 0.14); }
+.co, .xp-co { color: #0CC7A0; }

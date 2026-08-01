@@ -1,0 +1,40 @@
+/* ============================================================
+   Tokyo Night / NURVUS reskin — token override.
+   Load AFTER styles.css. Keeps the whole layout, swaps the world
+   from purple-gradient + aqua to navy + electric #504FF6.
+   (experiment/tokyo-night branch — preview A)
+   ============================================================ */
+:root {
+  --bg-from: #1a1c2d;   /* was #a4508b — navy (NURVUS base-1100) */
+  --bg-to:   #101120;   /* was #5f0a87 */
+  --accent:  #6E6DF8;   /* was #5cbdaa — electric primary-400 */
+  --accent-soft: #504FF6;
+  --accent-warm: #FFC500;  /* amber kept warm for balance */
+  --text:    #f1f2f7;
+  --text-dim: rgba(241,242,247,0.72);
+  --text-faint: rgba(241,242,247,0.5);
+  --card:    rgba(31,34,54,0.55);   /* navy glass */
+  --card-strong: rgba(31,34,54,0.78);
+  --border:  rgba(120,124,190,0.16);
+  --border-bright: rgba(110,109,248,0.42);
+  --shadow:  0 24px 60px rgba(6,8,22,0.55);
+}
+
+/* Ambient neon glow over the navy gradient (the recap signature). */
+body {
+  background-image:
+    radial-gradient(1100px 640px at 80% -8%, rgba(80,79,246,0.20), transparent 60%),
+    radial-gradient(820px 560px at 6% 6%, rgba(12,199,160,0.06), transparent 55%),
+    linear-gradient(326deg, var(--bg-from) 0%, var(--bg-to) 78%) !important;
+}
+
+/* Electric section titles + a glow on the primary button. */
+.section-title {
+  background: linear-gradient(92deg, #f1f2f7 0%, #c6c6fe 60%, #8A89FA 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.btn-primary {
+  box-shadow: 0 0 0 1px rgba(110,109,248,0.5), 0 8px 30px rgba(80,79,246,0.35);
+}
+/* Neon max-skill accents keep their pop against navy. */
+.skill-bar.max .fill, .radar-shape { filter: drop-shadow(0 0 6px rgba(80,79,246,0.5)); }

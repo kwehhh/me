@@ -1,55 +1,25 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Build & Deploy
 
-# Controls when the workflow will run
+# The cv is a static site (no build). Just rsync the files to the server as
+# `jcage` into the jcage-owned serve dir. No building on the box, no sudo.
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
   push:
     branches: [ master ]
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "deploy"
   deploy:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Deploy Unstable App
-        uses: appleboy/ssh-action@v0.1.4
-        with:
-          username: ${{ secrets.SSH_USERNAME }}
-          host: ${{ secrets.SSH_HOST }}
-          key: ${{ secrets.SSH_KEY }}
-          script: |
-            # Release build steps
-            # cd /home/apps # go to app dir
-            # rm -rf cv/ # wipe out app for fresh build
-            # git clone https://github.com/UnfocusedDrive/cv.git # get latest commit
-            # cd cv # go to app dir
-            # rm -rf /var/www/my.memoryleak.ai/ # remove directory
-            # mkdir /var/www/my.memoryleak.ai
-            # sudo mv -i * /var/www/my.memoryleak.ai/ # move build to serve dir
-            # echo 'Successfully deployed to my.memoryleak.ai'
-
-            # Staging (unstable) build steps
-            cd /home/apps # go to app dir
-            rm -rf cv/ # wipe out app for fresh build
-            git clone https://github.com/UnfocusedDrive/cv.git # get latest commit
-            cd cv # go to app dir
-
-            # Staging
-            rm -rf /var/www/unstable.memoryleak.ai/cv # remove directory
-            mkdir /var/www/unstable.memoryleak.ai/cv
-            sudo mv -i * /var/www/unstable.memoryleak.ai/cv # move build to serve dir
-            echo 'Successfully deployed to unstable.memoryleak.ai/cv'
-
-            # Production
-            # rm -rf /var/www/my.memoryleak.ai/unstable # remove directory
-            # mkdir /var/www/my.memoryleak.ai/unstable
-            # sudo mv -i * /var/www/my.memoryleak.ai/unstable # move build to serve dir
-            # echo 'Successfully deployed to my.memoryleak.ai/unstable'
+      - name: Deploy to my.nurvus.ai (rsync as jcage)
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "${{ secrets.SSH_KEY }}" > ~/.ssh/id_deploy
+          chmod 600 ~/.ssh/id_deploy
+          rsync -az --delete \
+            --exclude='.git' --exclude='.github' --exclude='node_modules' --exclude='.DS_Store' \
+            -e "ssh -i ~/.ssh/id_deploy -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" \
+            ./ "${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/var/www/my.nurvus.ai/"
+          echo "Deployed cv to my.nurvus.ai"
