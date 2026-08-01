@@ -26,6 +26,23 @@
   box-shadow: 0 0 8px rgba(80, 79, 246, 0.5);
 }
 
-/* Crisper cards, a touch closer to B's edges. */
-.card { border-color: rgba(80, 79, 246, 0.14); }
-.co, .xp-co { color: #0CC7A0; }
+/* Match the timeline (B) surfaces exactly — solid navy gradient cards,
+   crisp lines, mono aqua meta. (This is the palette you preferred.) */
+.card {
+  background: linear-gradient(180deg, #1f2236 0%, #181a2b 100%) !important;
+  border: 1px solid #2f3454 !important;
+}
+.card:hover { border-color: #504FF6 !important; }
+
+.tag {
+  font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace !important;
+  font-size: 11.5px !important;
+  color: #c3c7de !important;
+  background: rgba(80, 79, 246, 0.09) !important;
+  border: 1px solid #2f3454 !important;
+  border-radius: 7px !important;
+}
+
+.section-eyebrow { color: #8A89FA; }     /* B's soft-purple eyebrow */
+.co, .xp-co { color: #0CC7A0; }          /* aqua company names */
+.xp-when { color: #8A89FA; }             /* mono soft-purple dates */
