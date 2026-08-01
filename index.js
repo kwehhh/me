@@ -45,7 +45,7 @@
 // No build step — serve over HTTP so the ES module imports resolve.
 //
 
-import Spawn from './node_modules/@nurvus/spawn/index.js';
+import Spawn from './vendor/spawn.js';
 
 /* ------------------------------------------------------------------ */
 /* Data                                                               */

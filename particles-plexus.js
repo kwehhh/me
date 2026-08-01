@@ -27,8 +27,8 @@
     constructor() {
       this.x = Math.random() * canvas.width;
       this.y = Math.random() * canvas.height;
-      this.vx = (Math.random() - 0.5) * 1.2;
-      this.vy = (Math.random() - 0.5) * 1.2;
+      this.vx = (Math.random() - 0.5) * 0.6; // half speed
+      this.vy = (Math.random() - 0.5) * 0.6;
       this.radius = Math.random() * 2.5 + 1;
 
       const hues = [190, 270, 310, 340]; // cyan, purple, magenta, pink
