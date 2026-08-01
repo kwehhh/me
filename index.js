@@ -241,7 +241,8 @@ const buildAbout = () =>
           Spawn({
             className: 'card about-text reveal',
             children: [
-              Spawn({ tag: 'p', children: [Spawn({ tag: 'span', className: 'about-wave', children: 'Hi, I\u2019m John ' }), '\uD83D\uDC4B \u2014 a Seattle-based front-end engineer who\u2019s spent the last decade making design systems that other engineers genuinely enjoy using.'] }),
+              Spawn({ tag: 'p', className: 'about-greeting', children: [Spawn({ tag: 'span', className: 'about-wave', children: 'Hi, I\u2019m John ' }), '\uD83D\uDC4B'] }),
+              Spawn({ tag: 'p', children: 'A Seattle-based front-end engineer who\u2019s spent the last decade making design systems that other engineers genuinely enjoy using.' }),
               Spawn({ tag: 'p', children: [ 'I live at the intersection of ', Spawn({ tag: 'strong', children: 'design and engineering' }), ': buttery animations, pixel-perfect UI, and accessibility that works for everyone.' ] }),
               Spawn({ tag: 'p', children: [ 'Over the years I\u2019ve built secret 404 pages, hidden mini-games, and other subtle yet exciting touches into enterprise software. Bringing ', Spawn({ tag: 'strong', children: 'delight' }), ' to users is my passion \u2014 I\u2019m always chasing the ultimate user experience. Let\u2019s build something delightful together.' ] }),
             ],
@@ -309,7 +310,6 @@ const buildSkills = () =>
           Spawn({
             className: 'card skill-bars reveal d1',
             children: [
-              Spawn({ tag: 'p', className: 'fact', style: { marginBottom: '6px' }, children: [Spawn({ tag: 'span', className: 'label', children: 'A decade of front-end craft \u2014 with creativity pegged at the max.' })] }),
               ...SKILL_BARS.map((b) =>
                 Spawn({
                   className: `skill-bar${b.max ? ' max' : ''}`,
@@ -380,7 +380,6 @@ const buildFeatured = () =>
         className: 'featured-actions',
         children: [
           Spawn({ tag: 'a', className: 'btn btn-primary', href: 'https://imageslicer.com', target: '_blank', rel: 'noopener', children: [icon(ICON.ext), 'Visit imageslicer.com'] }),
-          Spawn({ tag: 'a', className: 'btn', href: 'https://github.com/kamaca/imageslicer', target: '_blank', rel: 'noopener', children: [icon(ICON.github), 'Repo'] }),
         ],
       }),
     ],

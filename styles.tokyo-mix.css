@@ -59,10 +59,18 @@
 /* Featured build card (Image Slicer) — one accent edge to set it apart. */
 .project-featured {
   border-left: 3px solid #504FF6 !important;
+  padding: 26px 28px;          /* was missing — matched to the other cards */
   margin-bottom: 22px;
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+/* Greeting on its own line at the top of the about card. */
+.about-greeting {
+  font-size: 1.12rem;
+  font-weight: 650;
+  margin-bottom: 2px;
 }
 .project-featured .featured-name { font-size: 1.34rem; margin-top: 4px; }
 .project-featured .featured-credit { color: #8f95b6; margin-top: -2px; }
