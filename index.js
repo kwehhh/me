@@ -212,10 +212,10 @@ const buildHero = () =>
     children: [
       Spawn({ tag: 'img', className: 'hero-avatar reveal', src: 'avatar.png', alt: 'John Yagiz' }),
       Spawn({ tag: 'h1', className: 'hero-name reveal d1', children: 'John Yagiz' }),
-      Spawn({ tag: 'p', className: 'hero-role reveal d1', children: 'Senior Front-End Engineer · Design Systems & UI Platform' }),
+      Spawn({ tag: 'p', className: 'hero-role reveal d1', children: 'Senior Front-End Engineer · Design Systems' }),
       Spawn({
         tag: 'p', className: 'hero-pitch reveal d2',
-        children: 'I build accessible, pixel-perfect interfaces where thoughtful design meets clean, scalable code \u2014 driven by a passion for delightful, memorable user experiences.',
+        children: 'I build accessible-first, pixel-perfect interfaces where thoughtful design meets clean, scalable code \u2014 driven by a passion for delightful, memorable user experiences.',
       }),
       Spawn({ tag: 'p', className: 'hero-meta reveal d2', children: 'Seattle, WA · 10+ years crafting UI' }),
       Spawn({
