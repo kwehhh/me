@@ -71,34 +71,16 @@
 
   let lastW = window.innerWidth;
 
-  // Touch devices — iOS Safari especially — slide their toolbars (address bar +
-  // the ⋯/controls) in and out AS YOU SCROLL, which changes innerHeight and
-  // fires a storm of 'resize' events. We must NOT reassign the canvas size on
-  // those, because assigning canvas.width/height clears the bitmap → flicker.
-  const isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
-
-  function targetSize() {
-    const w = window.innerWidth;
-    // On touch, size the buffer TALL enough to cover the toolbar-collapsed
-    // viewport (screen.height) so scrolling never requires a resize at all.
-    const h = isTouch
-      ? Math.max(
-          window.innerHeight,
-          document.documentElement.clientHeight || 0,
-          (window.screen && window.screen.height) || 0
-        )
-      : window.innerHeight;
-    return { w, h };
-  }
-
   function sizeCanvas() {
-    const { w, h } = targetSize();
-    canvas.width = w;
-    canvas.height = h;
-    // Match the CSS box to the buffer in PIXELS (not 100vh) so the browser never
-    // scales the bitmap — scaling shifted the field as the toolbars animated.
-    canvas.style.width = w + 'px';
-    canvas.style.height = h + 'px';
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    // Match the CSS box to the drawing buffer in PIXELS. The old `height: 100vh`
+    // differs from innerHeight on mobile (that's the whole URL-bar problem), so
+    // the browser SCALES the bitmap — and as the bar animates during a scroll
+    // the scale factor shifts and the particles appear to jump. 1:1 px sizing
+    // removes the scaling entirely.
+    canvas.style.width = window.innerWidth + 'px';
+    canvas.style.height = window.innerHeight + 'px';
   }
 
   function resizeCanvas() {
@@ -106,16 +88,18 @@
     initParticles();
   }
 
+  // Mobile browsers show/hide the URL bar as you scroll, which changes the
+  // viewport HEIGHT and fires 'resize'. Rebuilding the particle field on every
+  // such event made the plexus visibly reset/jump while scrolling on phones
+  // (desktop never sees it — its height doesn't change on scroll). Fix: only
+  // regenerate on an actual WIDTH change (orientation / real resize); for a
+  // height-only change just keep the backing store matched so nothing stretches.
   function handleResize() {
     const w = window.innerWidth;
     const widthChanged = w !== lastW;
-    // On touch, ignore height-only resizes (Safari's toolbars sliding during a
-    // scroll). We've already sized to cover both toolbar states, so there is
-    // nothing to do — and NOT touching the canvas avoids the clear → no flicker.
-    // A real width change (rotate) still rebuilds.
-    if (isTouch && !widthChanged) return;
     lastW = w;
-    resizeCanvas();
+    sizeCanvas();
+    if (widthChanged) initParticles();
     if (reduceMotion) { particles.forEach((p) => p.draw()); drawLines(); }
   }
 
