@@ -428,12 +428,16 @@ const buildFooter = () =>
         tag: 'p', className: 'footer-note',
         children: [
           '\u00A9 ' + new Date().getFullYear() + ' John Yagiz',
-          Spawn({ tag: 'br' }),
-          'Crafted with ',
-          Spawn({ tag: 'a', className: 'inline-link', href: 'https://github.com/kwehhh/Respawn', target: '_blank', rel: 'noopener', children: 'Respawn' }),
-          ' on a ',
-          Spawn({ tag: 'a', className: 'inline-link', href: 'https://codepen.io/Arti-Gagarin/pen/RNojrjK', target: '_blank', rel: 'noopener', children: 'particle backdrop' }),
-          '.',
+          Spawn({
+            tag: 'span', className: 'footer-craft',
+            children: [
+              'Crafted with ',
+              Spawn({ tag: 'a', className: 'inline-link', href: 'https://github.com/kwehhh/Respawn', target: '_blank', rel: 'noopener', children: 'Respawn' }),
+              ' on a ',
+              Spawn({ tag: 'a', className: 'inline-link', href: 'https://codepen.io/Arti-Gagarin/pen/RNojrjK', target: '_blank', rel: 'noopener', children: 'particle backdrop' }),
+              '.',
+            ],
+          }),
         ],
       }),
     ],

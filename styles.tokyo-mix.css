@@ -56,6 +56,9 @@
 }
 .inline-link:hover { color: #6E6DF8; border-bottom-color: #6E6DF8; }
 
+/* Footer: put "Crafted with…" on its own line with a bit of breathing room. */
+.footer-craft { display: block; margin-top: 12px; }
+
 /* Featured build card (Image Slicer) — one accent edge to set it apart. */
 .project-featured {
   border-left: 3px solid #504FF6 !important;
