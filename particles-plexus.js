@@ -74,6 +74,13 @@
   function sizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    // Match the CSS box to the drawing buffer in PIXELS. The old `height: 100vh`
+    // differs from innerHeight on mobile (that's the whole URL-bar problem), so
+    // the browser SCALES the bitmap — and as the bar animates during a scroll
+    // the scale factor shifts and the particles appear to jump. 1:1 px sizing
+    // removes the scaling entirely.
+    canvas.style.width = window.innerWidth + 'px';
+    canvas.style.height = window.innerHeight + 'px';
   }
 
   function resizeCanvas() {
@@ -131,8 +138,13 @@
     requestAnimationFrame(animate);
   }
 
-  window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
-  window.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
+  // Only wire the cursor-repel on devices with a real (fine, hovering) pointer.
+  // On a touchscreen a tap fires a synthetic mousemove that would shove the
+  // nearby particles aside — skip it so touch never disturbs the field.
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
+    window.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
+  }
   window.addEventListener('resize', handleResize);
 
   resizeCanvas();
