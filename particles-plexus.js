@@ -69,10 +69,31 @@
     for (let i = 0; i < numberOfParticles; i++) particles.push(new Particle());
   }
 
-  function resizeCanvas() {
+  let lastW = window.innerWidth;
+
+  function sizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+  }
+
+  function resizeCanvas() {
+    sizeCanvas();
     initParticles();
+  }
+
+  // Mobile browsers show/hide the URL bar as you scroll, which changes the
+  // viewport HEIGHT and fires 'resize'. Rebuilding the particle field on every
+  // such event made the plexus visibly reset/jump while scrolling on phones
+  // (desktop never sees it — its height doesn't change on scroll). Fix: only
+  // regenerate on an actual WIDTH change (orientation / real resize); for a
+  // height-only change just keep the backing store matched so nothing stretches.
+  function handleResize() {
+    const w = window.innerWidth;
+    const widthChanged = w !== lastW;
+    lastW = w;
+    sizeCanvas();
+    if (widthChanged) initParticles();
+    if (reduceMotion) { particles.forEach((p) => p.draw()); drawLines(); }
   }
 
   function drawLines() {
@@ -112,7 +133,7 @@
 
   window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
   window.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
-  window.addEventListener('resize', resizeCanvas);
+  window.addEventListener('resize', handleResize);
 
   resizeCanvas();
   if (reduceMotion) {
