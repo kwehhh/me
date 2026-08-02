@@ -13,6 +13,14 @@
     position: 'fixed', top: '0', left: '0',
     width: '100vw', height: '100vh',
     zIndex: '0', pointerEvents: 'none',
+    // EXPERIMENT (iOS Safari flicker): iOS repaints position:fixed elements as
+    // the toolbars animate on scroll, which flickers the plexus. Promote the
+    // canvas to its own GPU compositing layer so the compositor moves it
+    // instead of repainting each frame. Standard "translateZ hack"; harmless on
+    // desktop. Revert this block if it doesn't help on-device.
+    transform: 'translateZ(0)',
+    willChange: 'transform',
+    backfaceVisibility: 'hidden',
   });
   document.body.insertBefore(canvas, document.body.firstChild);
   const ctx = canvas.getContext('2d');
